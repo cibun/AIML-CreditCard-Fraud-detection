@@ -1,7 +1,4 @@
 # Credit Card Fraud Detection Project
-
-![Credit Card Fraud Detection](https://raw.githubusercontent.com/github/explore/main/topics/fraud-detection/fraud-detection.png)
-
 ## Overview
 This project demonstrates a complete workflow for credit card fraud detection using Python. It covers data analysis, handling class imbalance, visualization, and machine learning model comparison. The solution is designed to be professional, reproducible, and ready for public sharing on GitHub.
 
@@ -12,8 +9,12 @@ This project demonstrates a complete workflow for credit card fraud detection us
 Fraud Detection/
 ├── creditcard/
 │   └── creditcard.csv
-├── frauddetection.py
-└── README.md
+├── Images/
+│   ├── Screenshot 2025-08-14 010810.jpg
+│   └── Compare Analysis.png
+├── src/
+│   ├── frauddetection.py
+│   └── README.md
 ```
 
 ---
@@ -27,7 +28,7 @@ Fraud Detection/
 ```
 import pandas as pd
 ...
-df = pd.read_csv('creditcard/creditcard.csv')
+df = pd.read_csv('src/creditcard/creditcard.csv')
 print('Data shape:', df.shape)
 print(df['Class'].value_counts())
 ```
@@ -38,8 +39,8 @@ print(df['Class'].value_counts())
 - Visualize class imbalance using a count plot.
 - Apply PCA for dimensionality reduction and visualize data distribution.
 
-![Class Distribution](screenshots/class_distribution.png)
-![PCA Scatter](screenshots/pca_scatter.png)
+![Class Distribution](../Images/Screenshot%202025-08-14%20010810.jpg)
+![PCA Scatter](../Images/Compare%20Analysis.png)
 
 ---
 
@@ -47,7 +48,6 @@ print(df['Class'].value_counts())
 - Use Random Over Sampling (ROS), Random Under Sampling (AOS), and SMOTE to balance the dataset.
 - Visualize the effect of each technique using scatter plots.
 
-![Sampling Comparison](screenshots/sampling_comparison.png)
 
 ---
 
@@ -64,30 +64,31 @@ results_df = pd.DataFrame(results)
 print(results_df)
 ```
 
+![Model Comparison Table](../Images/Compare%20Analysis.png)
 ---
 
 ### 5. Results & Recommendation
 - The script prints the best model for each metric and the overall best model.
 
-![Model Comparison Table](screenshots/model_comparison.png)
 
 ---
 
 ## Screenshots & Images
-Add the following images to a `screenshots/` folder:
-- `class_distribution.png`: Bar plot of class distribution.
-- `pca_scatter.png`: PCA scatter plot of original data.
-- `sampling_comparison.png`: 2x2 grid of scatter plots for Original, ROS, AOS, SMOTE.
-- `model_comparison.png`: Screenshot of the model comparison table output.
+Below are key images from the analysis for better readability and understanding:
+- **Class Distribution:**
+  ![Class Distribution](../Images/Screenshot%202025-08-14%20010810.jpg)
+- **PCA & Sampling Comparison:**
+  ![PCA and Sampling Comparison](../Images/Compare%20Analysis.png)
+- **Model Comparison Table:**
+  ![Model Comparison Table](../Images/Compare%20Analysis.png)
 
 ---
-
 
 ## Quick Start: How to Run This Project
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/credit-card-fraud-detection.git
+   git clone https://github.com/cibun/AIML-CreditCard-Fraud-detection.git
    cd credit-card-fraud-detection
    ```
 
@@ -106,12 +107,12 @@ Add the following images to a `screenshots/` folder:
    ```
 
 5. **Add the Dataset**
-   - Download `creditcard.csv` from [Kaggle](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+   - Download `creditcard.csv` from [the project)
    - Place it in the `creditcard/` folder.
 
 6. **Run the Analysis Script**
    ```bash
-   python frauddetection.py
+   python src/frauddetection.py
    ```
 
 7. **View Results and Plots**
@@ -126,8 +127,6 @@ Add the following images to a `screenshots/` folder:
 
 ---
 
----
-
 ## Notes
 - The solution is designed for large, imbalanced datasets.
 - All code is commented and modular for easy understanding.
@@ -136,12 +135,12 @@ Add the following images to a `screenshots/` folder:
 ---
 
 ## License
-This project is open-source and free to use under the MIT License.
+This project is open-source and free to use and modify.
 
 ---
 
 ## Author
-Created by [Your Name].
+Created by [Biswakesan Swain].
 
 ---
 
@@ -151,6 +150,55 @@ Pull requests and issues are welcome!
 ---
 
 ## References
-- [Kaggle Credit Card Fraud Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+
 - [Imbalanced-learn Documentation](https://imbalanced-learn.org/stable/)
 - [XGBoost Documentation](https://xgboost.readthedocs.io/en/stable/)
+
+---
+
+## Detailed Step-by-Step Workflow
+
+### Data Cleaning
+- After loading, all rows with missing values are dropped to ensure clean input for analysis and modeling. This prevents errors in PCA and model training.
+
+### Feature Selection
+- All columns except 'Class' are used as features for PCA and model training. 'Class' is the target variable indicating fraud or not.
+
+### Sampling Techniques Explained
+- **Random Over Sampling (ROS):** Duplicates minority class samples to balance the dataset.
+- **Random Under Sampling (AOS):** Removes majority class samples to balance the dataset.
+- **SMOTE:** Synthesizes new minority class samples using nearest neighbors.
+- These techniques help address severe class imbalance, which is common in fraud detection.
+
+### Visualization
+- PCA is used to reduce feature space to 2D for visualization.
+- Side-by-side scatter plots show the effect of each sampling technique on the data distribution.
+
+### Model Training
+- Both RandomForest and XGBoost classifiers are trained using imbalanced-learn pipelines, which apply sampling before fitting the model.
+- Train/test split is stratified to preserve class proportions.
+
+### Evaluation Metrics
+- Models are evaluated using:
+  - **Accuracy:** Overall correctness (can be misleading for imbalanced data).
+  - **ROC-AUC:** Ability to distinguish between classes.
+  - **Precision:** Proportion of predicted frauds that are actual frauds.
+  - **Recall:** Proportion of actual frauds detected.
+  - **F1-score:** Harmonic mean of precision and recall.
+- These metrics are printed for each model and sampling technique.
+
+### Automated Recommendation
+- The script prints the best model for each metric.
+- The overall best model is recommended based on the majority of metrics (most wins).
+
+### Screenshots
+- Each image in the Images folder is referenced in the workflow and described for clarity.
+
+### Advanced Usage
+- Users can extend the script to include more models, metrics, or sampling techniques.
+- For large datasets, cloud-based Jupyter environments are recommended for faster computation and visualization.
+
+### Contact & Support
+- For questions, feedback, or collaboration, reach out via GitHub Issues or LinkedIn.
+
+---
